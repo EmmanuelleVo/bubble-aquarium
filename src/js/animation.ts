@@ -1,9 +1,10 @@
-import Bubble from "./Models/Bubble";
+import {Bubble} from "./Models/Bubble";
 
 export const animation = {
     // @ts-ignore
-    init(canvas, bubbles) {
+    init(canvas, bubbles, mousePointer) {
         this.bubbles = bubbles
+        this.mousePointer = mousePointer
         this.canvas = canvas
         this.animate()
 
@@ -16,9 +17,12 @@ export const animation = {
         this.bubbles.forEach((bubble: Bubble) => {
             bubble.update()
         })
+        this.mousePointer.update()
+
         requestAnimationFrame(() => {
             this.animate()
         });
+
     }
 
 }

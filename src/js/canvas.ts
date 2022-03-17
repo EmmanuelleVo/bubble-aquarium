@@ -1,10 +1,10 @@
 import {settings} from "./settings";
-import Bubble from "./Models/Bubble";
 
 export const canvas = {
-    init() {
+    init(mouse: {x: number, y: number}) {
         this.canvas = document.querySelector('.canvas') as HTMLCanvasElement
         this.ctx = this.canvas.getContext('2d')
+        this.mouse = mouse
         this.bubbles = []
 
         this.resizeCanvas()
@@ -19,6 +19,8 @@ export const canvas = {
     resizeCanvas() {
         this.canvas.width = window.innerWidth * settings.canvasWidth
         this.canvas.height = window.innerHeight * settings.canvasHeight
+
+        return this
     },
 
     generateGradient() {
@@ -29,10 +31,21 @@ export const canvas = {
             // TODO
         }
 
+        return this
+
     },
     draw() {
         this.ctx.fillStyle = this.gradient;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // TODO :
+        /*this.ctx.beginPath()
+        this.ctx.fillStyle = 'red';
+        this.ctx.arc(this.mouse.x, this.mouse.y, settings.circle.radius.max, 0, 2 * Math.PI)
+        this.ctx.fill
+        this.ctx.closePath()*/
+
+        return this
     },
 
     addEventListeners() {
@@ -41,5 +54,10 @@ export const canvas = {
             this.draw()
         })
 
+        this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
+            this.mouse.x = e.clientX - this.canvas.getBoundingClientRect().x - parseInt(getComputedStyle(this.canvas).borderWidth)
+            this.mouse.y = e.clientY - this.canvas.getBoundingClientRect().y - parseInt(getComputedStyle(this.canvas).borderWidth)
+        });
+        return this;
     },
 };

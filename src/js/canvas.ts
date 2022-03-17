@@ -1,7 +1,7 @@
 import {settings} from "./settings";
 
 export const canvas = {
-    init(mouse: {x: number, y: number}) {
+    init(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, mouse: {x: number, y: number}) {
         this.canvas = document.querySelector('.canvas') as HTMLCanvasElement
         this.ctx = this.canvas.getContext('2d')
         this.mouse = mouse
@@ -38,13 +38,6 @@ export const canvas = {
         this.ctx.fillStyle = this.gradient;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // TODO :
-        /*this.ctx.beginPath()
-        this.ctx.fillStyle = 'red';
-        this.ctx.arc(this.mouse.x, this.mouse.y, settings.circle.radius.max, 0, 2 * Math.PI)
-        this.ctx.fill
-        this.ctx.closePath()*/
-
         return this
     },
 
@@ -55,8 +48,8 @@ export const canvas = {
         })
 
         this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
-            this.mouse.x = e.clientX - this.canvas.getBoundingClientRect().x - parseInt(getComputedStyle(this.canvas).borderWidth)
-            this.mouse.y = e.clientY - this.canvas.getBoundingClientRect().y - parseInt(getComputedStyle(this.canvas).borderWidth)
+            this.mouse.x = Math.max(e.x - this.canvas.getBoundingClientRect().x - parseInt(getComputedStyle(this.canvas).borderWidth), 0)
+            this.mouse.y = Math.max(e.y - this.canvas.getBoundingClientRect().y - parseInt(getComputedStyle(this.canvas).borderWidth), 0)
         });
         return this;
     },

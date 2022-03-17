@@ -12,14 +12,13 @@ const app = {
         this.mouse = {x: 0, y: 0}
         this.bubbles = []
         this.circles = []
-        this.mousePointer = Circle
 
         this.mousePointer = new Circle(this.canvas, this.ctx, this.mouse, settings.circle.radius.max, settings.circle.color, 1);
-        this.canvas = canvas.init(this.mouse)
-        this.animation = animation.init(this.canvas, this.bubbles, this.mousePointer)
+        this.canvas = canvas.init(this.canvas, this.ctx, this.mouse)
 
         //this.loadCircle()
         this.loadBubbles()
+        this.animation = animation.init(this.canvas, this.bubbles, this.mousePointer)
 
     },
 
@@ -32,9 +31,6 @@ const app = {
     loadCircle() {
         this.circles.push(new Circle(this.canvasElt, this.ctx, this.mouse, settings.circle.radius.max, settings.circle.color, 1))
     }
-
-
-
 };
 app.init()
 

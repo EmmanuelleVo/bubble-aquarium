@@ -29,7 +29,7 @@ export const settings = {
             min: 10,
             max: 30,
         },
-        color: 'black',
+        color: '#e58b8b',
         maxCount: 1,
     },
 
